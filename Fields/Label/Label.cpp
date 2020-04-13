@@ -1,37 +1,30 @@
 #include "Label.h"
 
-Label::Label(std::string value, COORD coord) : value(value), coord(coord) {}
+Label::Label(std::string value, COORD coord)
+{
+    setValue(value);
+    setCoord(coord);
+}
 
-void Label::setValue(std::string value){
+void Label::setValue(std::string value)
+{
     this->value = value;
 }
 
-std::string Label::getValue(){
+std::string Label::getValue()
+{
     return this->value;
 }
 
-void Label::setCoord(COORD coord){
-    this->coord = coord;
-}
+void Label::_write(char T) {}
 
-COORD Label::getCoord(){
-    return this->coord;
-}
-
-void Label::setColors(DWORD fc , DWORD bc){
-    this->colors = fc | bc;
-}
-
-DWORD Label::getColors(){
-    return this->colors;
-}
-
-void Label::draw(){
+void Label::_draw()
+{
     auto outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleCursorPosition(outHandle,coord);
-    SetConsoleTextAttribute(outHandle,colors);
-    std::cout<< value;
+    SetConsoleCursorPosition(outHandle, coord);
+    SetConsoleTextAttribute(outHandle, this->colors);
+    std::cout << value;
 
-    CONSOLE_CURSOR_INFO info ={1,0};
-    SetConsoleCursorInfo(outHandle,&info);
+    CONSOLE_CURSOR_INFO info = {1, 0};
+    SetConsoleCursorInfo(outHandle, &info);
 }
