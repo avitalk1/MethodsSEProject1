@@ -14,15 +14,18 @@ class HandleIO {
 	int counter;
 	_CONSOLE_SCREEN_BUFFER_INFO bi;
 	WORD prevAttribute;
-    Panel panel;
-public:
-	HandleIO();
-	void ErrorExit(LPSTR);
-	void KeyEventProc(KEY_EVENT_RECORD);
-	void addComponent(Component& c);
-	void ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD);
-	void IOstart();
-	void showComponent();
-	void keyIdentifier(KEY_EVENT_RECORD ker);
-	~HandleIO();
+    Panel* panel;
+	private:
+		HandleIO();
+	public:
+		static HandleIO* init(Panel* panel);
+		void ErrorExit(LPSTR);
+		void KeyEventProc(KEY_EVENT_RECORD);
+		void addComponent(Component& c);
+		void ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD);
+		void IOstart();
+		void keyIdentifier(KEY_EVENT_RECORD ker);
+		~HandleIO();
 };
+
+HandleIO* IO = NULL;
