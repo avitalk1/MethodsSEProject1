@@ -40,24 +40,57 @@ void Panel::addComponent(Component* component){
     }
 }
 void Panel::eventListener(char T){
+    switch (T) {
     
+   
+    case 0x09:    //tab (VK_TAB) (used to navigate between controllers)
+    {
+        
+         nextComponent();
+        break;
+    }
+  
+    
+    case 0x0D: //enter (VK_RETURN) (used in checkbox controller)
+    {
+
+        
+            if(typeid(curr_component).name()== typeid(Panel).name()){
+                IO->setCurrPanel(static_cast<Panel*>(curr_component));
+                }
+             
+    
+        break;
+    
+    }
+}
+}
+
+void Panel::setPrev(Panel* p){
+    this->prev=p;
 }
 void Panel::_draw(){
-     if (compList != NULL) {
-        for (int i = 0; i < comp_counter; i++) {
-            compList[i]->_draw();
-            SetConsoleTextAttribute(outHandle, prevAttribute);      //set colors back to prev
+     if (components != NULL) {
+        for (int i = 0; i < num_of_components; i++) {
+            components[i]->_draw();
+            SetConsoleTextAttribute(outHandle, IO->prevAttribute);      //set colors back to prev
         }
         CONSOLE_CURSOR_INFO info = { 1,1 };
-        SetConsoleCursorPosition(outHandle, this->currComp->getCoord());
+        SetConsoleCursorPosition(outHandle, this->curr_component->getCoordinate());
     }
 }
 void Panel::nextComponent(){
     curr_component_index++;
     if (curr_component_index == num_of_components) {
-        curr_component = components[0];
-        curr_component_index = 0;
+        if(prev==this){
+            curr_component = components[0];
+            curr_component_index = 0;
+        }
+        else{
+            IO->setCurrPanel(prev);
+            prev->nextComponent();
+        }
     }
     else curr_component = components[curr_component_index];
 }
-Panel::~Panel();
+Panel::~Panel(){}
