@@ -18,6 +18,8 @@ public:
     void nextComponent();
     virtual void eventListener(char T);
     virtual void _draw();
+    virtual int getHeight();
+    virtual int getWidth();
     void setPrev(Panel* p);
     ~Panel();
 };

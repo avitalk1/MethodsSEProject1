@@ -7,7 +7,29 @@ Panel::Panel(COORD start_coord, DWORD bg_color, DWORD txt_color, Border border, 
     this->num_of_components = 0;
     this->curr_component_index = -1;
 }
+int Panel::getHeight(){
+    int h=this->height;
+    
+    for(int i=0;i<this->num_of_components;i++){
+        h=h+components[i]->getHeight();
+    }
+    return h;
+}
+int Panel::getWidth(){
+    int w=this->width;
+    int max=w;
+    for(int i=0;i<this->num_of_components;i++){
+        if(components[i]->getWidth()>max){
+            max= w+components[i]->getWidth();
+        }
+    }
+    return max;
+}
 void Panel::addComponent(Component* component){
+      if(typeid(component).name()== typeid(Panel).name()){
+                (static_cast<Panel*>(component))->prev=this;
+         }
+             
       if (components == NULL) {
         components = new Component * ();
         if (components == NULL) {
