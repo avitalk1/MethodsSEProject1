@@ -6,19 +6,21 @@
 #include "Component.h"
 #include "Label.h"
 #include "Option.h"
+#include <vector>
 
 using namespace std;
 
 class List : public Component {
+    protected:
     Label* label;
-    Option* options;
     int number_of_options;
     int curr_option;
     bool is_multi;
     int* selected_options;
-
+    vector<Option*> options;
 public:
-    List(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, int num_of_options,  Border border = NONE);
+    
+    List(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
     virtual COORD currentLocation();
     virtual void _draw();
     virtual void eventListener(char T);

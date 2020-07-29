@@ -16,7 +16,7 @@ HandleIO* HandleIO::init(Panel* panel){
         IO = new HandleIO();
         IO->panel = panel;
         IO->curr_panel=panel;
-        IO->panel->setPrev(IO->panel);
+        IO->panel->setParentPanel(IO->panel);
     }
     return IO;
 }
