@@ -2,12 +2,13 @@
 #include <windows.h>
 #include <iostream>
 #include <typeinfo>
+#include <vector>
 #include "Component.h"
 #include "HandleIO.h"
 
 class Panel : public Component {
-    Component** components;
-    Panel* prev;
+    vector<Component*> components;
+    Panel* parent_panel;
     int num_of_components;
 	int curr_component_index;
 
@@ -18,6 +19,6 @@ public:
     void nextComponent();
     virtual void eventListener(char T);
     virtual void _draw();
-    void setPrev(Panel* p);
+    void setParentPanel(Panel* parent);
     ~Panel();
 };
