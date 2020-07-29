@@ -16,6 +16,5 @@ class CheckList : public List {
         virtual void setCurrOption(int option);
         virtual void selectOption();
         virtual void setOptions(string* options_labels, int num_of_options);
-
         ~CheckList();
 };
