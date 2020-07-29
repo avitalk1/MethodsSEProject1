@@ -6,19 +6,22 @@
 #include "Component.h"
 #include "Label.h"
 #include "Option.h"
+#include <vector>
+enum ArrowKey { UP_KEY, DOWN_KEY }; 
 
 using namespace std;
 
 class List : public Component {
+    protected:
     Label* label;
-    Option* options;
     int number_of_options;
     int curr_option;
     bool is_multi;
     int* selected_options;
-
+    vector<Option*> options;
 public:
-    List(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, int num_of_options,  Border border = NONE);
+    
+    List(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
     virtual COORD currentLocation();
     virtual void _draw();
     virtual void eventListener(char T);
@@ -28,9 +31,9 @@ public:
 
     virtual void setOptions(string* options, int num_of_options) = 0;
     int getNumberOfOptions();
-    Option* getOptions();
+    vector<Option*> getOptions();
 
-    virtual void setCurrOption(int option) = 0;
+    void moveToNextOption(ArrowKey key);
     virtual void selectOption() = 0;
 
     int getCurrOption();

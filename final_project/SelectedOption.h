@@ -5,12 +5,14 @@
 #include <string>
 #include <iostream>
 #include "Option.h"
-
+#include "Button.h"
 using namespace std;
 
 class SelectedOption: public Option {
+    Button button;
     public:
-        SelectedOption(string label, DWORD txt_color, DWORD bg_color);
+        SelectedOption(COORD start_coord, string label, DWORD txt_color, DWORD bg_color);
         virtual void setIsSelected();
+        virtual void drawOption();
         ~SelectedOption();
 };

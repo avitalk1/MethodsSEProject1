@@ -9,28 +9,18 @@
 using namespace std;
 
 class Option {
-    Label label;
     COORD coordinate;
     DWORD background_color;
     DWORD text_color;
-    bool is_selected;
     HANDLE outHandle;
-
-
     public:
-        Option(string label, DWORD txt_color, DWORD bg_color);
-
-        void setLabel(string label);
-        Label getLabel();
-
+        bool is_selected;
+        Option(string label, DWORD txt_color, DWORD bg_color, COORD start_coord);
         virtual void setIsSelected() = 0;
         bool getIsSelected();
-
         void setCoordinate(COORD coord);
         COORD getCoordinate();
-
-        virtual void drawOption();
-
+        virtual void drawOption() = 0;
         void setBackgroundColor(DWORD color);
         void setTextColor(DWORD color);
         DWORD getBackgroundColor();
