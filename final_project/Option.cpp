@@ -5,8 +5,11 @@ Option::Option(string label, DWORD txt_color, DWORD bg_color,COORD start_coord )
     this->setBackgroundColor(background_color);
     this->setCoordinate(start_coord);
     this->outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    this->is_selected=false;
 }
-
+void Option::setSelected(bool T){
+    this->is_selected=T;
+}
 bool Option::getIsSelected(){
     return this->is_selected;
 }
@@ -20,7 +23,7 @@ COORD Option::getCoordinate(){
 }
 
 void Option::drawOption(){
-
+    
 }
 
 void Option::setBackgroundColor(DWORD color){
