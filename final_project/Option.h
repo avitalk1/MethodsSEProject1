@@ -20,7 +20,7 @@ class Option {
         bool getIsSelected();
         void setCoordinate(COORD coord);
         COORD getCoordinate();
-        virtual void drawOption();
+        virtual void drawOption() = 0;
         void setBackgroundColor(DWORD color);
         void setTextColor(DWORD color);
         DWORD getBackgroundColor();

@@ -7,6 +7,7 @@
 #include "Label.h"
 #include "Option.h"
 #include <vector>
+enum ArrowKey { UP_KEY, DOWN_KEY }; 
 
 using namespace std;
 
@@ -30,9 +31,9 @@ public:
 
     virtual void setOptions(string* options, int num_of_options) = 0;
     int getNumberOfOptions();
-    Option* getOptions();
+    vector<Option*> getOptions();
 
-    virtual void setCurrOption(int option) = 0;
+    void moveToNextOption(ArrowKey key);
     virtual void selectOption() = 0;
 
     int getCurrOption();
