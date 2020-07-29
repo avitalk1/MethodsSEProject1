@@ -44,16 +44,16 @@ void Component::drawBorder(){
         }
         COORD topLeft ,bottomLeft;
         topLeft={this->start_coordinate.X-1,this->start_coordinate.Y-1};
-        bottomLeft={topLeft.X+w,topLeft.Y+this->getHeight()};
+        bottomLeft={topLeft.X,topLeft.Y+this->getHeight()-1};
         SetConsoleCursorPosition(outHandle, topLeft);
         cout<<border_topLeft_corner;
-        for(i=1;i<w;i++){
+        for(i=1;i<w-1;i++){
             cout<<border_line_x;
         }
         cout<<border_topRight_corner;
         COORD height_left,height_right;
         height_left={topLeft.X,topLeft.Y+1};
-        height_right={height_left.X+w,height_left.Y};
+        height_right={height_left.X+w-1,height_left.Y};
         
         for(i=1;i<h-1;i++){
            SetConsoleCursorPosition(outHandle, height_left);
@@ -65,7 +65,7 @@ void Component::drawBorder(){
         }
         SetConsoleCursorPosition(outHandle, bottomLeft);
         cout<<border_bottomLeft_corner;
-        for(i=1;i<w;i++){
+        for(i=1;i<w-1;i++){
             cout<<border_line_x;
         }
         cout<<border_bottomRight_corner;
