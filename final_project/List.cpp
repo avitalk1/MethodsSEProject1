@@ -1,10 +1,28 @@
 #include "List.h"
-List::List(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE):
+List::List(bool is_multi,int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE):
     Component(w, h, start_coord, bg_color, txt_color, border){
         this->setLabel(head_line);
+        this->number_of_options=num_of_options;
+        int max =w;
+        for(int i =0;i<num_of_options;i++){
+            if(options[i].length() > max){
+                max+=options[i].length();
+            }
+        }
+        this->setWidth(max);
+        this->setHeight(h+(2*number_of_options));    
+        this->setOptions(options,num_of_options);   
+        this->is_multi=is_multi;
+        if(is_multi){
+            selected_options=new int[number_of_options]();
+        }
+        else{
+            selected_options=new int();
+        }
 }
 void List::_draw(){
-
+    this->drawBorder();
+    this->label->_draw();
 }
 void List::eventListener(char T){
     if (T == 0x0D)
@@ -56,5 +74,9 @@ int* List::getSelectedOption(){
 }
 List::~List(){
     delete(this->label);
+    for(int i=0;i<this->number_of_options;i++){
+        delete(this->options[i]);
+    }
+    delete(selected_options);
 }
 

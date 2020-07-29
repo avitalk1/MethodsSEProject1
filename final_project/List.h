@@ -21,7 +21,7 @@ class List : public Component {
     vector<Option*> options;
 public:
     
-    List(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
+    List(bool is_multi,int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
     virtual COORD currentLocation();
     virtual void _draw();
     virtual void eventListener(char T);

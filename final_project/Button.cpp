@@ -26,6 +26,10 @@ Listener* Button::getListener(){
     return this->listener;
 }
 void Button::setLabel(string button_label){
+    if(this->label){
+       this->label->setText(button_label);
+    }
+    else{
     COORD label_coord= this->getCoordinate();
     if(this->height-1>2){
         label_coord={label_coord.X,label_coord.Y+this->height/2};
@@ -33,11 +37,11 @@ void Button::setLabel(string button_label){
     if(this->width - button_label.length() > 1){
         label_coord={label_coord.X+(this->width - button_label.length())/2,label_coord.Y};
     }
-    if(this->label){
-        delete(this->label);
-    }
+    
     this->label=new Label(label_coord,this->background_color,this->text_color,button_label,border);
-}
+
+    }
+   }
 Label* Button::getLabel(){
     return this->label;
 }

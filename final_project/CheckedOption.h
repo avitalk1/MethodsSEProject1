@@ -10,10 +10,10 @@
 using namespace std;
 
 class CheckedOption: public Option {
-    Button button;
+    Button* button;
     Label* label;
     public:
-        CheckedOption(string label, DWORD txt_color, DWORD bg_color);
+        CheckedOption(string label, DWORD txt_color, DWORD bg_color,COORD coord);
         void setLabel(string label);
         virtual void setIsSelected();
         virtual void drawOption();

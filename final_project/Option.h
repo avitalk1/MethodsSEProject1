@@ -13,10 +13,12 @@ class Option {
     DWORD background_color;
     DWORD text_color;
     HANDLE outHandle;
+    bool is_selected;
     public:
         bool is_selected;
         Option(string label, DWORD txt_color, DWORD bg_color, COORD start_coord);
         virtual void setIsSelected() = 0;
+        // void setSelected(bool T);
         bool getIsSelected();
         void setCoordinate(COORD coord);
         COORD getCoordinate();
