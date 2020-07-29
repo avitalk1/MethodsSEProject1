@@ -17,7 +17,7 @@ class Component {
         Border border;
         HANDLE outHandle;
     public:
-        Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, Border border = NONE);
+        Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE);
         void setCoordinate(COORD coord);
         COORD getCoordinate();
         virtual COORD currentLocation();

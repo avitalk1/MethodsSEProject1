@@ -11,7 +11,7 @@ class MessageBox : public Component {
     Button cancel_button;
     string clicked;
     public:
-        MessageBox(COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, std::string txt, Border border = NONE);
+        MessageBox(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Border border = NONE);
         string getClicked();
         void setClicked(string clicked);
         void setLabel(string button_label);

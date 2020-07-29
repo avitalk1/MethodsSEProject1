@@ -12,7 +12,7 @@ using namespace std;
 class CheckedOption: public Option {
     Button button;
     public:
-        CheckedOption(string label, DWORD txt_color, DWORD bg_color, HANDLE outHandle);
+        CheckedOption(string label, DWORD txt_color, DWORD bg_color);
         virtual void setIsSelected();
         ~CheckedOption();
 };
