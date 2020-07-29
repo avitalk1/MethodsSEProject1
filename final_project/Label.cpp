@@ -23,7 +23,7 @@ void Label::_draw()
 {
     auto outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(outHandle, this->start_coordinate);
-    SetConsoleTextAttribute(outHandle, this->text_color);
+    SetConsoleTextAttribute(outHandle, this->text_color|this->background_color);
     std::cout << text;
 
     CONSOLE_CURSOR_INFO info = {1, 0};
