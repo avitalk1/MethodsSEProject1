@@ -9,7 +9,7 @@ class Button : public Component {
     Listener* listener;
     Component* component;
 public:
-    Button(COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, std::string txt, Listener* listener, Border border = NONE);
+    Button(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Listener* listener, Border border = NONE);
     void setLabel(string button_label);
     Label getLabel();
     void setListener(Listener* listener);

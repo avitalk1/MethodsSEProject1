@@ -6,7 +6,7 @@
 class Label : public Component {
     std::string text;
 public:
-    Label(COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, std::string txt, Border border = NONE);
+    Label(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Border border = NONE);
     void setText(std::string txt);
     std::string getText();
     virtual void eventListener(char T);

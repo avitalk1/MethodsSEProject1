@@ -18,7 +18,7 @@ class Option {
 
 
     public:
-        Option(string label, DWORD txt_color, DWORD bg_color, HANDLE outHandle);
+        Option(string label, DWORD txt_color, DWORD bg_color);
 
         void setLabel(string label);
         Label getLabel();
