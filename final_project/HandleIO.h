@@ -3,7 +3,9 @@
 #include <windows.h>
 #include <stdio.h>
 #include "Component.h"
+#include <typeinfo>
 #include "Panel.h"
+
 
 class HandleIO {
 	HANDLE outHandle;
@@ -12,12 +14,15 @@ class HandleIO {
 	DWORD cNumRead, fdwMode, i;
 	INPUT_RECORD irInBuf[128];
 	int counter;
-	_CONSOLE_SCREEN_BUFFER_INFO bi;
-	WORD prevAttribute;
+	
     Panel* panel;
+	Panel* curr_panel;
 	private:
 		HandleIO();
 	public:
+	 _CONSOLE_SCREEN_BUFFER_INFO bi;
+	WORD prevAttribute;
+		void setCurrPanel(Panel* p);
 		static HandleIO* init(Panel* panel);
 		void ErrorExit(LPSTR);
 		void KeyEventProc(KEY_EVENT_RECORD);

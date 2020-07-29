@@ -15,6 +15,8 @@ HandleIO* HandleIO::init(Panel* panel){
     if(IO == NULL){
         IO = new HandleIO();
         IO->panel = panel;
+        IO->curr_panel=panel;
+        IO->panel->setPrev(IO->panel);
     }
     return IO;
 }
@@ -107,39 +109,41 @@ void HandleIO::IOstart() {
     SetConsoleTextAttribute(outHandle, prevAttribute);      //set colors back to prev
     SetConsoleMode(hStdin, fdwSaveOldMode);                 // Restore input mode on exit.
 }
-
+void HandleIO::setCurrPanel(Panel* p){
+    this->curr_panel=p;
+}
 void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     switch (ker.wVirtualKeyCode) {
     case 0x25:   //left arrow (VK_LEFT) (used in textBox controller)
     {
         if (ker.bKeyDown)
-            panel->curr_component->eventListener(0x25);
+            this->curr_panel->curr_component->eventListener(0x25);
         break;
     }
     case 0x27:  //right arrow (VK_RIGHT) (used in textBox controller)
     {
         if (ker.bKeyDown)
-           panel->curr_component->eventListener(0x27);
+           this->curr_panel->curr_component->eventListener(0x27);
         break;
     }
     case 0x26:  //up arrow (VK_UP) (used in textBox controller)
     {
         if (ker.bKeyDown)
-            panel->curr_component->eventListener(0x26);
+            this->curr_panel->curr_component->eventListener(0x26);
 
         break;
     }
     case 0x28:  //down arrow (VK_DOWN) (used in textBox controller)
     {
         if (ker.bKeyDown) {
-            panel->curr_component->eventListener(0x28);
+            this->curr_panel->curr_component->eventListener(0x28);
         }
         break;
     }
     case 0x09:    //tab (VK_TAB) (used to navigate between controllers)
     {
         if (ker.bKeyDown) {
-           panel->nextComponent();
+           this->curr_panel->eventListener(0x09);
         }
         SetConsoleCursorPosition(outHandle, panel->curr_component->currentLocation());
 
@@ -152,14 +156,14 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     case 0x08:   //backspace (VK_BACK) (used in textBox controller)
     {
         if (ker.bKeyDown) {
-            panel->curr_component->eventListener(0x08);
+            this->curr_panel->curr_component->eventListener(0x08);
         }
         break;
     }
     case 0x2E: //delete (VK_DELETE) (used in textBox controller)
     {
         if (ker.bKeyDown) {
-             panel->curr_component->eventListener(0x2E);
+             this->curr_panel->curr_component->eventListener(0x2E);
         }
         break;
     }
@@ -167,7 +171,8 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     {
 
         if (ker.bKeyDown) {
-             panel->curr_component->eventListener(0x0D);
+            this->curr_panel->eventListener(0x0D);
+             
         }
         break;
     }
@@ -175,7 +180,7 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     {
 
         if (ker.bKeyDown) {
-             panel->curr_component->eventListener(0x20);
+             this->curr_panel->curr_component->eventListener(0x20);
         }
         break;
     }
@@ -191,7 +196,7 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
         //}
         if (ker.wVirtualKeyCode >= 0x21 && ker.wVirtualKeyCode <= 0x7e) {
             if (ker.bKeyDown) {
-                panel->curr_component->eventListener(ker.uChar.AsciiChar);
+                this->curr_panel->curr_component->eventListener(ker.uChar.AsciiChar);
             }
         }
         break;
