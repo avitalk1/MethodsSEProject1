@@ -7,9 +7,9 @@ Label::Label(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt
    
 }
 
-void Label::setText(std::string value)
+void Label::setText(std::string txt)
 {
-    this->text = value;
+    this->text = txt;
 }
 
 std::string Label::getText()
@@ -21,11 +21,10 @@ void Label::eventListener(char T) {}
 
 void Label::_draw()
 {
-    auto outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    //auto outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(outHandle, this->start_coordinate);
     SetConsoleTextAttribute(outHandle, this->text_color|this->background_color);
     std::cout << text;
-
     CONSOLE_CURSOR_INFO info = {1, 0};
     SetConsoleCursorInfo(outHandle, &info);
 }
