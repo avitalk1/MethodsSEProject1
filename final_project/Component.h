@@ -27,11 +27,12 @@ class Component {
         DWORD getTextColor();
         void setHeight(int h);
         void setWidth(int w);
-        int getHeight();
-        int getWidth();
+        virtual int getHeight();
+        virtual int getWidth();
         void setBorder(Border b);
         Border getBorder();
         virtual void _draw() = 0;
+        virtual void drawBorder();
         //this was _write
         virtual void eventListener(char T) = 0;
 

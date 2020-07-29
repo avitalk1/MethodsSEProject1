@@ -20,5 +20,7 @@ public:
     virtual void eventListener(char T);
     virtual void _draw();
     void setParentPanel(Panel* parent);
+    virtual int getHeight();
+    virtual int getWidth();
     ~Panel();
 };
