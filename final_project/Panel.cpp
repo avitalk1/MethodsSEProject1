@@ -1,6 +1,6 @@
 #include "Panel.h"
-Panel::Panel(COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, Border border, int height, int width ):
-    Component(width, height, start_coord, bg_color, txt_color, outHandle, border)
+Panel::Panel(COORD start_coord, DWORD bg_color, DWORD txt_color, Border border, int height, int width ):
+    Component(width, height, start_coord, bg_color, txt_color, border)
 {
     this->components = NULL;
     this->curr_component = NULL;

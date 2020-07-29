@@ -1,5 +1,6 @@
 #include "Component.h"
-Component::Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, Border border = NONE) {
+
+Component::Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE) {
     if (border == NONE){
         this->setWidth(w);
         this->setHeight(h);
@@ -10,8 +11,7 @@ Component::Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_
         this->setHeight(h+2);
         this->setCoordinate({start_coord.X+1,start_coord.Y+1});
     }
-    
-    
+
     this->setBackgroundColor(bg_color);
     this->setTextColor(txt_color);
     this->outHandle = GetStdHandle(STD_OUTPUT_HANDLE);

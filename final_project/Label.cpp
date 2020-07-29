@@ -1,7 +1,7 @@
 #include "Label.h"
 
-Label::Label(COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, std::string txt, Border border = NONE): 
-    Component(1, 1, start_coord, bg_color, txt_color, outHandle, border)
+Label::Label(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Border border = NONE): 
+    Component(1, 1, start_coord, bg_color, txt_color, border)
 {
     this->setText(txt);
    

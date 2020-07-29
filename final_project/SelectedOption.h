@@ -10,7 +10,7 @@ using namespace std;
 
 class SelectedOption: public Option {
     public:
-        SelectedOption(string label, DWORD txt_color, DWORD bg_color, HANDLE outHandle);
+        SelectedOption(string label, DWORD txt_color, DWORD bg_color);
         virtual void setIsSelected();
         ~SelectedOption();
 };

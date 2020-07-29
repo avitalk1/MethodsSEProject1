@@ -13,7 +13,7 @@ class NumericBox : public Component {
     Button plus_button;
     int value;
     public:
-        NumericBox(COORD start_coord, DWORD bg_color, DWORD txt_color,HANDLE outHandle, std::string txt, Border border = NONE);
+        NumericBox(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Border border = NONE);
         int getValue();
         void setValue();
         void setMinValue();
