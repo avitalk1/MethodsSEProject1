@@ -9,9 +9,11 @@ class Button : public Component {
     Listener* listener;
     Component* component;
 public:
-    Button(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Listener* listener, Border border = NONE);
+    Button(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt,Component* comp, Listener* listener, Border border = NONE);
     void setLabel(string button_label);
     Label getLabel();
+    void pushButton();
+    //{listener.listner(component)}
     void setListener(Listener* listener);
     Listener* getListener();
     virtual void eventListener(char T);

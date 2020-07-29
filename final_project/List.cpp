@@ -11,7 +11,7 @@ void List::setLabel(string head_line){
     this->label = new Label(this->start_coordinate, this->background_color, this->text_color, this->outHandle, head_line, NONE);
 }
 Label* List::getLabel(){
-    return this->label
+    return this->label;
 }
 int List::getNumberOfOptions(){
     return this->number_of_options;
