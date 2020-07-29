@@ -2,7 +2,8 @@
 #include "Component.h"
 #include "Button.h"
 #include "ListenerPlus.h"
-// #include "Label.h"
+#include "ListenerMinus.h"
+#include "Label.h"
 using namespace std;
 
 class NumericBox: public Component {
@@ -13,6 +14,7 @@ class NumericBox: public Component {
     Button* plus_button;
     COORD plus_btn_coord;
     COORD label_coord;
+    Button* curr_button;
     int value;
 public:
         NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int val, int min, int max, Border border = NONE);
@@ -23,6 +25,8 @@ public:
         void setMaxValue(int max);
         int getMaxValue();
         void Increase();
+        void Decrease();
         virtual void eventListener(char T);
         virtual void _draw();
+        ~NumericBox();
 };

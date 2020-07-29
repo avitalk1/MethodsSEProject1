@@ -6,7 +6,7 @@
 #include "Listener.h"
 #include "NumericBox.h"
 
-class ListenerPlus :public Listener {
+class ListenerMinus :public Listener {
    
     public:
         virtual void listener(Component* component) ;
