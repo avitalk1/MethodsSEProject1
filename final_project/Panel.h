@@ -5,7 +5,7 @@
 #include <typeinfo>
 #include <vector>
 #include "Component.h"
-#include "HandleIO.h"
+
 
 class Panel : public Component {
     vector<Component*> components;
@@ -25,3 +25,5 @@ public:
     virtual int getWidth();
     ~Panel();
 };
+
+#include "HandleIO.h"
