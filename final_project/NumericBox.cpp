@@ -8,7 +8,8 @@ NumericBox::NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD tx
     label_coord = start_coordinate;
     start_coordinate.X = start_coordinate.X + 2;
     this->label = new Label(label_coord, bg_color, txt_color, to_string(val), border);
-    this->minus_button = new Button(start_coord, bg_color, txt_color,this,listener * , SINGLE_LINE, "-");
+    ListenerMinus* minus_listener = new ListenerMinus();
+    this->minus_button = new Button(start_coord, bg_color, txt_color,this,minus_listener , SINGLE_LINE, "-");
     this->plus_btn_coord = start_coordinate;
     plus_btn_coord.X = start_coord.X + to_string(max_limit).length() + 2;
     ListenerPlus* plus_listener = new ListenerPlus();
