@@ -4,9 +4,23 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include "TextBox.h"
-#include "Component.h"
+#include <windows.h>
+#include <stdio.h>
+#include <iostream>
+#include <string>
+
+// #include "Button.h"
+// #include "CheckedOption.h"
+#include "CheckList.h"
+#include "ComboBox.h"
+#include "Component.h" 
+#include "HandleIO.h"
+#include "Label.h"
+#include "MessageBoxComp.h"
+#include "NumericBox.h"
 #include "Panel.h"
+#include "RadioBox.h" 
+#include "TextBox.h"
 
 using namespace std;
 
