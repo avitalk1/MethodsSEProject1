@@ -18,10 +18,14 @@ List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD
     if (is_multi)
     {
         selected_options = new int[number_of_options]();
+        for(int i = 0 ; i < this->number_of_options; i++){
+            this->selected_options[i] = 0;
+        }
     }
     else
     {
         selected_options = new int();
+        this->selected_options[0] = 0;
     }
 }
 void List::_draw()
@@ -88,6 +92,9 @@ int List::getCurrOption()
 int *List::getSelectedOption()
 {
     return this->selected_options;
+}
+COORD List::currentLocation(){
+    return this->options[this->curr_option]->getCoordinate();
 }
 List::~List()
 {

@@ -9,14 +9,16 @@
 using namespace std;
 
 class ComboBox : public List {
-    Button show_button;
-    Label selected_option_text;
+    Button* show_button;
+    Label* selected_option_text;
+    bool show_list;
     public:
         ComboBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
-        virtual void setCurrOption(int option);
+        // virtual void setCurrOption(int option);
+        void setShowList();
         virtual void selectOption();
         virtual void setOptions(string* options, int num_of_options);
-        void undraw();
+        // void undraw();
         virtual void _draw();
         ~ComboBox();
 };
