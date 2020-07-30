@@ -1,6 +1,6 @@
 #include "NumericBox.h"
 
-NumericBox::NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int val, int min, int max, Border border = NONE) : Component(1, 1, start_coord, bg_color, txt_color, border)
+NumericBox::NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int val, int min, int max, Border border) : Component(1, 1, start_coord, bg_color, txt_color, border)
 {
     this->min_limit = min;
     this->max_limit - max;

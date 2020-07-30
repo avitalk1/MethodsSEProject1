@@ -1,6 +1,6 @@
 
 #include "ComboBox.h"
-ComboBox::ComboBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string *options, int num_of_options, Border border = NONE)
+ComboBox::ComboBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string *options, int num_of_options, Border border)
     : List(false, w, h, start_coord, bg_color, txt_color, head_line, options, num_of_options, border)
 {
     this->show_list = false;

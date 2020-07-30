@@ -17,6 +17,7 @@ class Component {
         HANDLE outHandle;
     public:
         Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE);
+        virtual void drawBorder();
         void setCoordinate(COORD coord);
         COORD getCoordinate();
         virtual COORD currentLocation();
@@ -31,7 +32,6 @@ class Component {
         void setBorder(Border b);
         Border getBorder();
         virtual void _draw() = 0;
-        virtual void drawBorder();
         //this was _write
         virtual void eventListener(char T) = 0;
 

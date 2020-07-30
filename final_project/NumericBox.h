@@ -24,9 +24,11 @@ public:
         int getMinValue();
         void setMaxValue(int max);
         int getMaxValue();
+        ~NumericBox();
         void Increase();
         void Decrease();
-        virtual void eventListener(char T);
         virtual void _draw();
-        ~NumericBox();
+        virtual void eventListener(char T);
+        
+
 };
