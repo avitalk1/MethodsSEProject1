@@ -5,8 +5,6 @@
 #include <iostream>
 #include "List.h"
 #include "CheckedOption.h"
-
-
 using namespace std;
 
 class CheckList : public List {

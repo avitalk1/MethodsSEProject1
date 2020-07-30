@@ -18,12 +18,12 @@ class ComboBox : public List {
         ComboBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
         // virtual void setCurrOption(int option);
         void setShowList();
-        virtual void selectOption();
-        virtual void setOptions(string* options_labels, int num_of_options);
         virtual void moveToNextOption(ArrowKey key);
+        virtual void selectOption();
+        virtual void _draw();
+        virtual void setOptions(string* options_labels, int num_of_options);
         // void undraw();
         virtual void eventListener(char T);
         virtual COORD currentLocation();
-        virtual void _draw();
         ~ComboBox();
 };

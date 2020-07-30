@@ -1,6 +1,6 @@
 #include "MessageBoxComp.h"
 
-MessageBoxComp::MessageBoxComp(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color,string txt, Border border = NONE):
+MessageBoxComp::MessageBoxComp(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color,string txt, Border border):
 Component(1, 1, start_coord, bg_color, txt_color, border)
 {
     cancel_btn_position.X=start_coord.X;

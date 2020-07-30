@@ -1,12 +1,11 @@
 #include "Label.h"
 
-Label::Label(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Border border = NONE): 
+Label::Label(COORD start_coord, DWORD bg_color, DWORD txt_color, std::string txt, Border border): 
     Component(1, 1, start_coord, bg_color, txt_color, border)
 {
     this->setText(txt);
    
 }
-
 void Label::setText(std::string txt)
 {
     this->text = txt;
