@@ -23,10 +23,11 @@ class Option {
         bool getIsSelected();
         void setCoordinate(COORD coord);
         COORD getCoordinate();
-        virtual void drawOption() = 0;
+        
         void setBackgroundColor(DWORD color);
         void setTextColor(DWORD color);
         DWORD getBackgroundColor();
         DWORD getTextColor();
+        virtual void drawOption() = 0;
         virtual ~Option() = 0;
 };

@@ -1,5 +1,5 @@
 #include "List.h"
-List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string *options, int num_of_options, Border border = NONE) : Component(w, h, start_coord, bg_color, txt_color, border)
+List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string *options, int num_of_options, Border border) : Component(w, h, start_coord, bg_color, txt_color, border)
 {
     this->setLabel(head_line);
     this->number_of_options = num_of_options;
