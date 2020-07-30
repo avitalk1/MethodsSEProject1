@@ -33,7 +33,7 @@ public:
     int getNumberOfOptions();
     vector<Option*> getOptions();
 
-    void moveToNextOption(ArrowKey key);
+    virtual void moveToNextOption(ArrowKey key);
     virtual void selectOption() = 0;
 
     int getCurrOption();
