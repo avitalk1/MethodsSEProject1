@@ -9,10 +9,11 @@
 using namespace std;
 
 class SelectedOption: public Option {
-    Button button;
+    Button* button;
     public:
-        SelectedOption(COORD start_coord, string label, DWORD txt_color, DWORD bg_color);
+        SelectedOption(COORD start_coord, string label, DWORD txt_color, DWORD bg_color,int w);
         virtual void setIsSelected();
         virtual void drawOption();
+        string getOptionValue();
         ~SelectedOption();
 };

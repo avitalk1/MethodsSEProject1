@@ -9,13 +9,14 @@
 using namespace std;
 
 class Option {
-    COORD coordinate;
-    DWORD background_color;
-    DWORD text_color;
-    HANDLE outHandle;
-    bool is_selected;
-    public:
+  
+    protected:
+        COORD coordinate;
+        DWORD background_color;
+        DWORD text_color;
+        HANDLE outHandle;
         bool is_selected;
+    public:
         Option(string label, DWORD txt_color, DWORD bg_color, COORD start_coord);
         virtual void setIsSelected() = 0;
         // void setSelected(bool T);
