@@ -14,7 +14,6 @@ class CheckedOption: public Option {
     Label* label;
     public:
         CheckedOption(string label, DWORD txt_color, DWORD bg_color,COORD coord);
-        void setLabel(string label);
         virtual void setIsSelected();
         virtual void drawOption();
         ~CheckedOption();
