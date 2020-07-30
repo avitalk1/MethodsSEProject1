@@ -22,7 +22,7 @@ public:
     int getRightLimit();
     int getTopLimit();
     int getBottomLimit();
-    virtual void eventListenr(char T);
+    virtual void eventListener(char T);
     int getAbsolutePosition();
     virtual COORD currentLocation();
 };

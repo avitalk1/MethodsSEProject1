@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include "TextBox.h"
+#include "Component.h"
 // #include "checkList.h"
 // #include "textBox.h"
 // #include "Label.h"
@@ -28,6 +30,14 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     cout << "try";
+    DWORD TC = FOREGROUND_RED;
+    DWORD BC = BACKGROUND_BLUE;
+    TextBox* t = new TextBox(3,3,{0,0},TC,BC,NONE);
+    // TextBox t2(3,3,{0,0},FOREGROUND_RED,BACKGROUND_BLUE,NONE);
+    // t2->_draw();
+    t->_draw();
+    cout << "END";
+    // TextBox* T= new TextBox(3,3,{0,0},FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY,BACKGROUND_BLUE,NONE);
     // TextBox tb1({5, 15}, 13, 2);
     // tb1.setColors(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY, BACKGROUND_BLUE);
     // string s = "head";
