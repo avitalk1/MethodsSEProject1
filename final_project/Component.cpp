@@ -1,6 +1,6 @@
 #include "Component.h"
 
-Component::Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE) {
+Component::Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border) {
     if (border == NONE){
         this->setWidth(w);
         this->setHeight(h);

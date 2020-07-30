@@ -1,6 +1,6 @@
 #include "TextBox.h"
 
-TextBox::TextBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE):
+TextBox::TextBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border):
 Component(w, h, start_coord, bg_color, txt_color, border)
 {
     this->left_limit = start_coord.X;
@@ -8,7 +8,6 @@ Component(w, h, start_coord, bg_color, txt_color, border)
     this->top_limit = start_coord.Y;
     this->bottom_limit = start_coord.Y + h;
 }
-
 int TextBox::getBottomLimit() { return this->bottom_limit; }
 int TextBox::getTopLimit() { return this->top_limit; }
 int TextBox::getLeftLimit() { return this->left_limit; }
@@ -77,7 +76,7 @@ bool TextBox::setCursor(int x, int y) {                              //set curso
     }
 }
 
-void TextBox::eventListenr(char T) {
+void TextBox::eventListener(char T) {
     DWORD colors = this->text_color | this->background_color;
     SetConsoleTextAttribute(outHandle, colors);         //set console textbox colors
     switch (T) {
