@@ -15,11 +15,12 @@ class HandleIO {
 	INPUT_RECORD irInBuf[128];
 	int counter;
 	
-    Panel* panel;
+    
 	Panel* curr_panel;
 	private:
 		HandleIO();
 	public:
+	Panel* panel;
 	 _CONSOLE_SCREEN_BUFFER_INFO bi;
 	WORD prevAttribute;
 		void setCurrPanel(Panel* p);
