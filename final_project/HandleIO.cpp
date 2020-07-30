@@ -8,9 +8,11 @@ HandleIO::HandleIO() {
     GetConsoleScreenBufferInfo(outHandle, &bi);
     prevAttribute = bi.wAttributes;
 }
-HandleIO::~HandleIO() {
-    delete(this->panel);
+
+void HandleIO::setCurrPanel(Panel* p){
+    this->curr_panel=p;
 }
+
 HandleIO* HandleIO::init(Panel* panel){
     if(IO == NULL){
         IO = new HandleIO();
@@ -20,6 +22,7 @@ HandleIO* HandleIO::init(Panel* panel){
     }
     return IO;
 }
+
 void HandleIO::ErrorExit(LPSTR lpszMessage)
 {
     fprintf(stderr, "%s\n", lpszMessage);
@@ -41,6 +44,7 @@ void HandleIO::ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD wbsr)
     printf("Resize event\n");
     printf("Console screen buffer is %d columns by %d rows.\n", wbsr.dwSize.X, wbsr.dwSize.Y);
 }
+
 
 void HandleIO::IOstart() {
     // Get the standard input handle. 
@@ -109,9 +113,7 @@ void HandleIO::IOstart() {
     SetConsoleTextAttribute(outHandle, prevAttribute);      //set colors back to prev
     SetConsoleMode(hStdin, fdwSaveOldMode);                 // Restore input mode on exit.
 }
-void HandleIO::setCurrPanel(Panel* p){
-    this->curr_panel=p;
-}
+
 void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     switch (ker.wVirtualKeyCode) {
     case 0x25:   //left arrow (VK_LEFT) (used in textBox controller)
@@ -202,4 +204,8 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
         break;
     }
     }
+}
+
+HandleIO::~HandleIO(){
+   delete(this->panel);
 }

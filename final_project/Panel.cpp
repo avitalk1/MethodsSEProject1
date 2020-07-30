@@ -5,25 +5,6 @@ Panel::Panel(COORD start_coord, DWORD bg_color, DWORD txt_color, Border border, 
     this->num_of_components = 0;
     this->curr_component_index = -1;
 }
-int Panel::getHeight(){
-    int h=this->height;
-    
-    for(int i=0;i<this->num_of_components;i++){
-        h=h+components[i]->getHeight();
-    }
-    return h;
-}
-int Panel::getWidth(){
-    int w=this->width;
-    int max=w;
-    for(int i=0;i<this->num_of_components;i++){
-        if(components[i]->getWidth()>max){
-            max= w+components[i]->getWidth();
-        }
-    }
-    return max;
-}
-
 void Panel::addComponent(Component *component)
 {
     if (typeid(component).name() == typeid(Panel).name())
@@ -38,47 +19,6 @@ void Panel::addComponent(Component *component)
     {
         this->curr_component = this->components[0];
         this->curr_component_index = 0;
-    }
-}
-void Panel::eventListener(char T)
-{
-    switch (T)
-    {
-        case 0x09: //tab (VK_TAB) (used to navigate between controllers)
-        {
-            nextComponent();
-            break;
-        }
- 
-        case 0x0D: //enter (VK_RETURN) (used in checkbox controller)
-        {
-            if (typeid(curr_component).name() == typeid(Panel).name())
-            {
-                IO->setCurrPanel(static_cast<Panel *>(curr_component));
-            }
-            break;
-        }
-    }
-}
-
-void Panel::setParentPanel(Panel *parent)
-{
-    this->parent_panel = parent;
-}
-
-void Panel::_draw()
-{
-    //draw panel
-    this->drawBorder();
-    if (components.size() != 0)
-    {
-        for (int i = 0; i < num_of_components; i++)
-        {
-            components[i]->_draw();
-            SetConsoleTextAttribute(outHandle, IO->prevAttribute); //set colors back to prev
-        }
-        CONSOLE_CURSOR_INFO info = {1, 1};
-        SetConsoleCursorPosition(outHandle, this->curr_component->getCoordinate());
     }
 }
 void Panel::nextComponent()
@@ -100,4 +40,66 @@ void Panel::nextComponent()
     else
         curr_component = components[curr_component_index];
 }
-Panel::~Panel() {}
+void Panel::eventListener(char T)
+{
+    switch (T)
+    {
+        case 0x09: //tab (VK_TAB) (used to navigate between controllers)
+        {
+            nextComponent();
+            break;
+        }
+ 
+        case 0x0D: //enter (VK_RETURN) (used in checkbox controller)
+        {
+            if (typeid(curr_component).name() == typeid(Panel).name())
+            {
+                
+                IO->setCurrPanel(static_cast<Panel *>(curr_component));
+            }
+            break;
+        }
+    }
+}
+void Panel::_draw()
+{
+    //draw panel
+    this->drawBorder();
+    if (components.size() != 0)
+    {
+        for (int i = 0; i < num_of_components; i++)
+        {
+            components[i]->_draw();
+            SetConsoleTextAttribute(outHandle, IO->prevAttribute); //set colors back to prev
+        }
+        CONSOLE_CURSOR_INFO info = {1, 1};
+        SetConsoleCursorPosition(outHandle, this->curr_component->getCoordinate());
+    }
+}
+void Panel::setParentPanel(Panel *parent)
+{
+    this->parent_panel = parent;
+}
+int Panel::getHeight(){
+    int h=this->height;
+    
+    for(int i=0;i<this->num_of_components;i++){
+        h=h+components[i]->getHeight();
+    }
+    return h;
+}
+int Panel::getWidth(){
+    int w=this->width;
+    int max=w;
+    for(int i=0;i<this->num_of_components;i++){
+        if(components[i]->getWidth()>max){
+            max= w+components[i]->getWidth();
+        }
+    }
+    return max;
+}
+Panel::~Panel() {
+    for(int i = 0;i<this->num_of_components;i++){
+        delete(components[i]);
+    }
+}
