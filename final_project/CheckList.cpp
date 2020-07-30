@@ -9,6 +9,8 @@ void CheckList::_draw(){
     for(int i = 0; i < this->number_of_options; i++){
         this->options[i]->drawOption();
     }
+    CONSOLE_CURSOR_INFO info = {1, 1};
+    SetConsoleCursorPosition(outHandle, this->options[this->curr_option]->getCoordinate());
 }
 void CheckList::selectOption(){
     this->options[this->curr_option]->setIsSelected();

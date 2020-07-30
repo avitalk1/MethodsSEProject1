@@ -55,6 +55,7 @@ void ComboBox::_draw()
             this->options[i]->drawOption();
         }
     }
+    CONSOLE_CURSOR_INFO info = {1, 1};
     SetConsoleCursorPosition(outHandle, this->show_button->currentLocation());
 
 }
