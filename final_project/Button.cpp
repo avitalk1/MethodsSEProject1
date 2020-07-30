@@ -17,6 +17,7 @@ void Button::eventListener(char T){
 void Button::_draw(){
     this->drawBorder();
     this->label->_draw();
+    CONSOLE_CURSOR_INFO info = {1, 1};
     SetConsoleCursorPosition(outHandle, this->start_coordinate);
 }
 void Button::setListener(Listener* listener){
