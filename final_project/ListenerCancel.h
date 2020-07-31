@@ -2,7 +2,6 @@
 #include <string> 
 #include <windows.h>
 #include <iostream>
-#include "Component.h"
 #include "Listener.h"
 #include "MessageBoxComp.h"
 

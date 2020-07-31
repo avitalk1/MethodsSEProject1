@@ -1,12 +1,17 @@
 
 
 #include "HandleIO.h"
-
+// HandleIO* getIO(){
+//     return IO;
+// }
 HandleIO::HandleIO() {
     counter = 0;
     outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(outHandle, &bi);
     prevAttribute = bi.wAttributes;
+    // this->panel = panel;
+    // this->curr_panel=panel;
+    // this->panel->setParentPanel(panel);
 }
 
 void HandleIO::setCurrPanel(Panel* p){
@@ -14,13 +19,11 @@ void HandleIO::setCurrPanel(Panel* p){
 }
 
 HandleIO* HandleIO::init(Panel* panel){
-    if(IO == NULL){
-        IO = new HandleIO();
-        IO->panel = panel;
-        IO->curr_panel=panel;
-        IO->panel->setParentPanel(IO->panel);
-    }
-    return IO;
+    
+        this->panel = panel;
+        this->curr_panel=panel;
+        this->panel->setParentPanel(panel);
+    return this;
 }
 
 void HandleIO::ErrorExit(LPSTR lpszMessage)

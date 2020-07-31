@@ -13,7 +13,7 @@ List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD
     }
     this->setWidth(max);
     this->setHeight(h + (2 * number_of_options));
-    this->setOptions(options, num_of_options);
+    // this->setOptions(options, num_of_options);
     this->is_multi = is_multi;
     if (is_multi)
     {

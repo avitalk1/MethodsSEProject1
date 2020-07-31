@@ -1,12 +1,17 @@
 #include "Panel.h"
-Panel::Panel(COORD start_coord, DWORD bg_color, DWORD txt_color, Border border, int height, int width) : Component(width, height, start_coord, bg_color, txt_color, border)
+Panel::Panel(HandleIO* IO,COORD start_coord, DWORD bg_color, DWORD txt_color, Border border, int height, int width) : Component(width, height, start_coord, bg_color, txt_color, border)
 {
+    this->io=IO;
     this->curr_component = NULL;
     this->num_of_components = 0;
     this->curr_component_index = -1;
 }
 void Panel::addComponent(Component *component)
 {
+    // if (typeid(component).name() == typeid(MessageBoxComp).name())
+    //     {
+    //            (static_cast<MessageBoxComp *>(component))->setPanel(this);
+    //     }
     if (typeid(component).name() == typeid(Panel).name())
     {
         (static_cast<Panel *>(component))->parent_panel = this;
@@ -33,7 +38,8 @@ void Panel::nextComponent()
         }
         else
         {
-            IO->setCurrPanel(parent_panel);
+            
+            io->setCurrPanel(parent_panel);
             parent_panel->nextComponent();
         }
     }
@@ -55,7 +61,10 @@ void Panel::eventListener(char T)
             if (typeid(curr_component).name() == typeid(Panel).name())
             {
                 
-                IO->setCurrPanel(static_cast<Panel *>(curr_component));
+               
+                    this->io->setCurrPanel(static_cast<Panel *>(curr_component));
+                
+                
             }
             break;
         }
@@ -67,10 +76,11 @@ void Panel::_draw()
     this->drawBorder();
     if (components.size() != 0)
     {
+        
         for (int i = 0; i < num_of_components; i++)
         {
             components[i]->_draw();
-            SetConsoleTextAttribute(outHandle, IO->prevAttribute); //set colors back to prev
+            SetConsoleTextAttribute(outHandle, this->io->prevAttribute); //set colors back to prev
         }
         CONSOLE_CURSOR_INFO info = {1, 1};
         SetConsoleCursorPosition(outHandle, this->curr_component->getCoordinate());

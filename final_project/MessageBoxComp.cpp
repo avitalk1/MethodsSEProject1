@@ -1,5 +1,7 @@
 #include "MessageBoxComp.h"
-
+void MessageBoxComp::setPanel(Component* p){
+    this->panel=p;
+}
 MessageBoxComp::MessageBoxComp(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color,string txt, Border border):
 Component(1, 1, start_coord, bg_color, txt_color, border)
 {
@@ -13,7 +15,7 @@ Component(1, 1, start_coord, bg_color, txt_color, border)
     ListenerCancel* cancel_listener = new ListenerCancel();
     this->cancel_button = new Button(cancel_btn_position, bg_color, txt_color,this, cancel_listener, SINGLE_LINE, "CANCEL");
     this->curr_button=this->ok_button;
-
+    this->panel=NULL;
 }
 void MessageBoxComp::setLabel(string button_label){this->label->setText(button_label);}
 Label* MessageBoxComp::getLabel(){return this->label;}
@@ -84,13 +86,13 @@ MessageBoxComp::~MessageBoxComp(){
 }
 bool MessageBoxComp::clickOk(){
     cls(outHandle); 
-    IO->panel->_draw();
+    this->panel->_draw();
     SetConsoleCursorPosition(outHandle, this->prevCursorLocation);
     return true;
 }
 bool MessageBoxComp::clickCancel(){
     cls(outHandle); 
-    IO->panel->_draw();
+    this->panel->_draw();
     SetConsoleCursorPosition(outHandle, this->prevCursorLocation);
     return false;
 }

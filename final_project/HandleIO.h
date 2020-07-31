@@ -12,17 +12,16 @@ class HandleIO {
 	DWORD cNumRead, fdwMode, i;
 	INPUT_RECORD irInBuf[128];
 	int counter;
-	
-    
 	Panel* curr_panel;
-	private:
-		HandleIO();
+
+		
 	public:
+	HandleIO();
 	Panel* panel;
 	 _CONSOLE_SCREEN_BUFFER_INFO bi;
 	WORD prevAttribute;
 		void setCurrPanel(Panel* p);
-		static HandleIO* init(Panel* panel);
+		HandleIO* init(Panel* panel);
 		void ErrorExit(LPSTR);
 		void KeyEventProc(KEY_EVENT_RECORD);
 		// void addComponent(Component& c);
@@ -32,4 +31,5 @@ class HandleIO {
 		~HandleIO();
 };
 
-HandleIO* IO = NULL;
+// HandleIO* IO = NULL;
+// HandleIO* getIO();

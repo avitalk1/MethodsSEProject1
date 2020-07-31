@@ -20,6 +20,9 @@ void SelectedOption::drawOption()
 {
     this->button->_draw();
 }
+string SelectedOption::getOptionValue(){
+    return this->button->getLabel()->getText();
+}
 SelectedOption::~SelectedOption()
 {
     delete(button);

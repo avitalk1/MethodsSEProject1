@@ -7,7 +7,8 @@
 #include "Label.h"
 #include "ListenerOk.h"
 #include "ListenerCancel.h"
-#include "HandleIO.h"
+
+
 
 class MessageBoxComp : public Component {
     Label* label;
@@ -19,7 +20,7 @@ protected:
     COORD ok_btn_position;
     COORD cancel_btn_position;
     COORD prevCursorLocation;
-
+    Component* panel;
 public:
     MessageBoxComp(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color,string txt, Border border = NONE);
     void setLabel(string button_label);
@@ -32,4 +33,6 @@ public:
     void cls( HANDLE hConsole ); //clear screen
     // void saveCurrentScreen();
     // void loadPrevScreen();
+    void setPanel(Component* p);
 };
+// #include "Panel.h"

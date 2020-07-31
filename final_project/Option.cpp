@@ -35,3 +35,6 @@ DWORD Option::getTextColor(){
     return this->text_color;
 }
 
+Option::~Option(){
+    
+}
