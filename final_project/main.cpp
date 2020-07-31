@@ -29,5 +29,5 @@ int main(int argc, char const *argv[])
     // return 0;
     int x=5;
     cout << x;
-    cout << "hi";
+    cout << "hello";
 }
