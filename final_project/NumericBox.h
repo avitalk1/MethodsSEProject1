@@ -17,8 +17,9 @@ class NumericBox: public Component {
     Button* curr_button;
     int value;
 public:
-        NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int val, int min, int max, Border border = NONE);
+        NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int min, int max, Border border = NONE);
         int getValue();
+        virtual int getWidth();
         void setValue(int val);
         void setMinValue(int min);
         int getMinValue();

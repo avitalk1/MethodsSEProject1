@@ -17,6 +17,8 @@ class Component {
         HANDLE outHandle;
     public:
         Component(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE);
+        virtual bool amIPanel();
+        // virtual bool amILabel();
         virtual void drawBorder();
         void setCoordinate(COORD coord);
         COORD getCoordinate();

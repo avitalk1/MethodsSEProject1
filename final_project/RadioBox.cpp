@@ -5,8 +5,13 @@
         this->setOptions(options, num_of_options);
         this->curr_option = 0;
     }
+
+COORD RadioBox::currentLocation(){
+    return this->options[0]->getCoordinate();
+}
+
     void RadioBox::_draw(){
-        List:_draw();
+        List::_draw();
         for(int i=0;i<this->number_of_options;i++){
             this->options[i]->drawOption();
         }

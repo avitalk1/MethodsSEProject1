@@ -9,7 +9,7 @@
             // "command": "cd C:\\Users\\idoki\\Documents\\GitHub\\MethodsSEProject1\\final_project",
             "command": "g++",
             "args": [
-                "-g", "main.cpp"
+                "-g", "Button.cpp" ,"CheckedOption.cpp", "CheckList.cpp", "ComboBox.cpp", "Component.cpp", "HandleIO.cpp", "Label.cpp", "List.cpp", "ListenerMinus.cpp", "ListenerPlus.cpp", "main.cpp", "NumericBox.cpp", "Option.cpp", "Panel.cpp", "RadioBox.cpp", "SelectedOption.cpp", "TextBox.cpp", "ListenerShowList.cpp"
             ],
             "group": {
                 "kind": "build",

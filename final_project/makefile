@@ -1,7 +1,7 @@
 # final_project: Button.o CheckedOption.o CheckList.o ComboBox.o Component.o HandleIO.o Label.o List.o ListenerCancel.o ListenerMinus.o ListenerOk.o ListenerPlus.o main.o Panel.o MessageBoxComp.o NumericBox.o Option.o RadioBox.o SelectedOption.o TextBox.o ListenerShowList.o
 # 	g++ Button.o CheckedOption.o CheckList.o ComboBox.o Component.o HandleIO.o Label.o List.o ListenerCancel.o ListenerMinus.o ListenerOk.o ListenerPlus.o main.o Panel.o MessageBoxComp.o NumericBox.o Option.o RadioBox.o SelectedOption.o TextBox.o ListenerShowList.o -o final_project
 
-final_project: Button.o CheckedOption.o CheckList.o ComboBox.o Component.o HandleIO.o Label.o List.o  ListenerMinus.o ListenerPlus.o main.o NumericBox.o Option.o Panel.o RadioBox.o SelectedOption.o TextBox.o ListenerShowList.o
+final_project: Button.o CheckedOption.o CheckList.o ComboBox.o Component.o HandleIO.o Label.o List.o ListenerMinus.o ListenerPlus.o main.o NumericBox.o Option.o Panel.o RadioBox.o SelectedOption.o TextBox.o ListenerShowList.o
 	g++ Button.o CheckedOption.o CheckList.o ComboBox.o Component.o HandleIO.o Label.o List.o  ListenerMinus.o ListenerPlus.o main.o NumericBox.o Option.o Panel.o RadioBox.o SelectedOption.o TextBox.o ListenerShowList.o -o final_project
 
 
