@@ -3,7 +3,7 @@ List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD
 {
     this->setLabel(head_line);
     this->number_of_options = num_of_options;
-    int max = w;
+    int max = this->width + head_line.length();
     for (int i = 0; i < num_of_options; i++)
     {
         if (options[i].length() > max)
@@ -12,7 +12,7 @@ List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD
         }
     }
     this->setWidth(max);
-    this->setHeight(h + (2 * number_of_options));
+    this->setHeight(this->height + (2 * number_of_options));
     // this->setOptions(options, num_of_options);
     this->is_multi = is_multi;
     if (is_multi)
@@ -28,6 +28,9 @@ List::List(bool is_multi, int w, int h, COORD start_coord, DWORD bg_color, DWORD
         this->selected_options[0] = 0;
     }
 }
+int* List::getInput(){
+    return this->selected_options;
+}
 void List::_draw()
 {
     this->drawBorder();
@@ -35,17 +38,17 @@ void List::_draw()
 }
 void List::eventListener(char T)
 {
-    if (T == 0x0D)
+    if (T == 0x20)
     {
         this->selectOption();
     }
     if (T == 0x26)
     {
-        this->moveToNextOption(DOWN_KEY);
+        this->moveToNextOption(UP_KEY);
     }
     if (T == 0x28)
     {
-        this->moveToNextOption(UP_KEY);
+        this->moveToNextOption(DOWN_KEY);
     }
 }
 void List::moveToNextOption(ArrowKey key)
@@ -53,11 +56,11 @@ void List::moveToNextOption(ArrowKey key)
     int move;
     if (key == UP_KEY)
     {
-        move = 1;
+        move = -1;
     }
     else
     {
-        move = -1;
+        move = 1;
     }
     this->curr_option += move;
 
@@ -66,6 +69,8 @@ void List::moveToNextOption(ArrowKey key)
     if (this->curr_option == this->number_of_options)
         this->curr_option = 0;
 
+    CONSOLE_CURSOR_INFO info = { 1, 1 };                   //set cursor visible    Lvalue= size (1-100), Rvalue= setVisable(0 or 1)
+    SetConsoleCursorInfo(outHandle, &info);              //show input cursor
     SetConsoleCursorPosition(outHandle, options[this->curr_option]->getCoordinate()); //set the cursor location
 }
 void List::setLabel(string head_line)

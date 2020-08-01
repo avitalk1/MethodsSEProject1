@@ -20,5 +20,6 @@ public:
     Listener *getListener();
     void setLabel(string button_label);
     Label *getLabel();
+    void setBackgroundColor(DWORD color);
     ~Button();
 };

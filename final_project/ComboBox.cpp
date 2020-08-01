@@ -7,7 +7,7 @@ ComboBox::ComboBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_co
     this->show_list = false;
     this->on_list=false;
     this->setHeight(h + 4 + (num_of_options * 3));
-    this->setWidth(this->width + 2);
+    this->setWidth(this->width + 4);
     ListenerShowList* show_list_listener = new ListenerShowList();
     COORD show_button_coord = {this->start_coordinate.X, this->start_coordinate.Y + 2};
     this->show_button = new Button(show_button_coord, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED, FOREGROUND_GREEN | FOREGROUND_INTENSITY, this, show_list_listener, NONE ,"V");
@@ -21,17 +21,43 @@ void ComboBox::setShowList()
     {
         this->show_list = false;
         this->_draw();
+
     }
     else
     {
         this->show_list = true;
         this->_draw();
+        SetConsoleCursorPosition(outHandle, this->options[this->curr_option]->getCoordinate());
+        this->on_list=true;
     }
 }
 void ComboBox::moveToNextOption(ArrowKey key){
+    List::moveToNextOption(key);   
+    if(key==UP_KEY){
+        if(this->curr_option==this->number_of_options-1){
+            //0
+            this->options[0]->setIsSelected();
+        }
+        else{
+            //i+1
+            this->options[this->curr_option+1]->setIsSelected();
+        }
+    }
+    else{
+        if(this->curr_option==0){
+            //n-1
+            this->options[this->number_of_options-1]->setIsSelected();
+        }
+        else{
+            //i-1
+            this->options[this->curr_option-1]->setIsSelected();
+        }
+    }
     this->options[this->curr_option]->setIsSelected();
-    List:moveToNextOption(key);    
-    this->options[this->curr_option]->setIsSelected();
+    CONSOLE_CURSOR_INFO info = { 1, 1 };                   //set cursor visible    Lvalue= size (1-100), Rvalue= setVisable(0 or 1)
+    SetConsoleCursorInfo(outHandle, &info);              //show input cursor
+    SetConsoleCursorPosition(outHandle, options[this->curr_option]->getCoordinate()); //set the cursor location
+
 }
 
 void ComboBox::selectOption()
@@ -63,30 +89,30 @@ void ComboBox::_draw()
 
 void ComboBox::setOptions(string *options_labels, int num_of_options)
 {
-    COORD start_list_coord = {this->label->getCoordinate().X,this->label->getCoordinate().Y+2};
+    COORD start_list_coord = {this->label->getCoordinate().X,this->label->getCoordinate().Y+4};
     for( int i = 0; i < this->number_of_options; i++){
         this->options.push_back(new SelectedOption(start_list_coord, options_labels[i], this->getTextColor(), this->getBackgroundColor(),this->getWidth()));
         start_list_coord={start_list_coord.X,start_list_coord.Y+3};
     }
     this->options[0]->setIsSelected();
+    this->curr_option=0;
 }
 
 void ComboBox::eventListener(char T){
     if(show_list){
          
-        if (T == 0x26)
-        {
-            this->moveToNextOption(DOWN_KEY);
-        }
-        if (T == 0x28)
+        if (T == 0x26 && on_list)
         {
             this->moveToNextOption(UP_KEY);
+        }
+        if (T == 0x28 && on_list)
+        {
+            this->moveToNextOption(DOWN_KEY);
         }
         if(T==0x25)//left
         {
             //set curser to button coord
             SetConsoleCursorPosition(outHandle, this->show_button->currentLocation());
-
             this->on_list =false;
         }
         if(T==0x27)//right
@@ -97,11 +123,11 @@ void ComboBox::eventListener(char T){
         }
         
     }
-    if (T == 0x0D && this->on_list)
+    if (T == 0x20 && this->on_list)
         {
             this->selectOption();
         }
-    if (T == 0x0D && this->on_list==false)
+    if (T == 0x20 && this->on_list==false)
         {
             this->show_button->pushButton();
         }

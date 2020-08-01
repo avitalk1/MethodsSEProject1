@@ -13,6 +13,10 @@ int TextBox::getTopLimit() { return this->top_limit; }
 int TextBox::getLeftLimit() { return this->left_limit; }
 int TextBox::getRightLimit() { return this->right_limit; }
 
+string TextBox::getInput(){
+    return this->buffer;
+}
+
 void TextBox::_draw() {
     COORD temp = this->start_coordinate;
     //auto outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -22,6 +26,11 @@ void TextBox::_draw() {
     DWORD colors = this->text_color | this->background_color;
     SetConsoleTextAttribute(outHandle, colors);         //set console textbox colors
     drawBorder();
+    if(this->getBorder()!= NONE){
+        this->width=this->width-2;
+        this->height=this->height-2;
+    }
+    SetConsoleCursorPosition(outHandle, this->start_coordinate);
     for (int i = 0; i < this->height; ++i) {
         for (int k = 0; k < this->width; ++k) {
             cout << " ";

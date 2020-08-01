@@ -1,20 +1,22 @@
 #include "NumericBox.h"
 
-NumericBox::NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int val, int min, int max, Border border) : Component(1, 1, start_coord, bg_color, txt_color, border)
+NumericBox::NumericBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, int min, int max, Border border) : Component(1, 1, start_coord, bg_color, txt_color, border)
 {
     this->min_limit = min;
-    this->max_limit - max;
-    this->value = val;
-    label_coord = start_coordinate;
-    start_coordinate.X = start_coordinate.X + 2;
-    this->label = new Label(label_coord, bg_color, txt_color, to_string(val), border);
+    this->max_limit = max;
+    this->value = (min+max)/2;
+    // this->start_coordinate=start_coord;
+    label_coord = start_coord;
+    label_coord.X = start_coord.X+2;
+    // start_coordinate.X = start_coordinate.X + 2;
+    this->label = new Label(label_coord, bg_color, txt_color, to_string(this->value), border);
     ListenerMinus* minus_listener = new ListenerMinus();
-    this->minus_button = new Button(start_coord, bg_color, txt_color,this,minus_listener , SINGLE_LINE, "-");
+    this->minus_button = new Button(start_coord, bg_color, txt_color,this,minus_listener , NONE, "-");
     this->plus_btn_coord = start_coordinate;
-    plus_btn_coord.X = start_coord.X + to_string(max_limit).length() + 2;
+    plus_btn_coord.X = start_coord.X + to_string(max_limit).length() + 2+1;
     ListenerPlus* plus_listener = new ListenerPlus();
-    this->plus_button = new Button(plus_btn_coord, bg_color, txt_color,this, plus_listener, SINGLE_LINE, "+");
-    this->curr_button=this->plus_button;
+    this->plus_button = new Button(plus_btn_coord, bg_color, txt_color,this, plus_listener, NONE, "+");
+    this->curr_button=this->minus_button;
 }
 int NumericBox::getValue() { return this->value; }
 void NumericBox::setValue(int val) { this->value = val; }
@@ -39,7 +41,7 @@ void NumericBox::Decrease(){
         label->_draw();     //draw new label
         // this->plus_btn_coord = start_coordinate;            
         // plus_button->_draw();
-        SetConsoleCursorPosition(outHandle, plus_btn_coord);            //set cursor position back to plus button
+        SetConsoleCursorPosition(outHandle, this->start_coordinate);            //set cursor position back to plus button
     }
 }
 void NumericBox::Increase(){
@@ -52,20 +54,31 @@ void NumericBox::Increase(){
         // SetConsoleCursorPosition(outHandle,label_coord);        //set cursor to start label coordinate in order to print the updated label
         label->_draw();     //draw new label
         // plus_button->_draw();
-        SetConsoleCursorPosition(outHandle, start_coordinate);              //set cursor position back to minus button
+        SetConsoleCursorPosition(outHandle, this->plus_btn_coord);              //set cursor position back to minus button
     }
+}
+int NumericBox::getWidth(){
+    return (this->width + to_string(max_limit).length() +4);
 }
 void NumericBox::_draw()
 {
+    COORD temp_coord;
     CONSOLE_CURSOR_INFO info = {1, 0};                           //set cursor invisible   Lvalue= size (1-100), Rvalue= setVisable(0 or 1)
     SetConsoleCursorInfo(outHandle, &info);                      //hide input cursor
-    SetConsoleCursorPosition(outHandle, this->start_coordinate); //set console textbox coordinates
+    SetConsoleCursorPosition(outHandle, this->start_coordinate); //set console NumericBox coordinates
     DWORD colors = this->text_color | this->background_color;
     SetConsoleTextAttribute(outHandle, colors); //set console textbox colors
-    drawBorder();
+    // drawBorder();
+    SetConsoleCursorPosition(outHandle, this->start_coordinate); //set console NumericBox coordinates
     minus_button->_draw();
+    temp_coord.X=label_coord.X-1;
+    temp_coord.Y=label_coord.Y;
+    SetConsoleCursorPosition(outHandle, temp_coord); //set console NumericBox coordinates
     cout << " ";
     label->_draw();
+    temp_coord.X=plus_btn_coord.X -1;
+    // SetConsoleCursorPosition(outHandle, this->start_coordinate); //set console NumericBox coordinates
+    SetConsoleCursorPosition(outHandle, temp_coord);
     cout << " ";
     plus_button->_draw();
     SetConsoleCursorPosition(outHandle, this->start_coordinate); //set console cursor coordinates
@@ -111,6 +124,8 @@ void NumericBox::eventListener(char T)
     case 0x20: //SPACEBAR key
     {
         curr_button->pushButton();
+        CONSOLE_CURSOR_INFO info = {1, 1};                                               //set cursor visible    Lvalue= size (1-100), Rvalue= setVisable(0 or 1)
+        SetConsoleCursorInfo(outHandle, &info);                      //show input cursor
         // DWORD colors = this->text_color | this->background_color;
         // SetConsoleTextAttribute(outHandle, colors);                 //set console textbox colors
         // GetConsoleScreenBufferInfo(outHandle, &bi);                         //gets the current location of the cursor

@@ -12,7 +12,7 @@ class HandleIO {
 	DWORD cNumRead, fdwMode, i;
 	INPUT_RECORD irInBuf[128];
 	int counter;
-	Panel* curr_panel;
+	//Panel* curr_panel;
 
 		
 	public:
@@ -20,7 +20,7 @@ class HandleIO {
 	Panel* panel;
 	 _CONSOLE_SCREEN_BUFFER_INFO bi;
 	WORD prevAttribute;
-		void setCurrPanel(Panel* p);
+		// void setCurrPanel(Panel* p);
 		HandleIO* init(Panel* panel);
 		void ErrorExit(LPSTR);
 		void KeyEventProc(KEY_EVENT_RECORD);

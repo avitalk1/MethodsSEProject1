@@ -4,7 +4,7 @@ CheckedOption::CheckedOption(string label, DWORD txt_color, DWORD bg_color, COOR
     : Option(label, txt_color, bg_color, coord)
 {
     this->label = new Label({coord.X + 2, coord.Y}, bg_color, txt_color, label);
-    this->button = new Button(coord, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED, FOREGROUND_GREEN | FOREGROUND_INTENSITY, NULL, NULL);
+    this->button = new Button(coord, BACKGROUND_GREEN , FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED, NULL, NULL);
 }
 void CheckedOption::drawOption()
 {

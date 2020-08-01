@@ -20,7 +20,7 @@ class List : public Component {
     int* selected_options;
     vector<Option*> options;
 public:
-    
+    int* getInput();
     List(bool is_multi,int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, string head_line, string* options, int num_of_options,  Border border = NONE);
     virtual void _draw();
     virtual void eventListener(char T);

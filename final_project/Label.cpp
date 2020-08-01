@@ -17,13 +17,20 @@ std::string Label::getText()
 }
 
 void Label::eventListener(char T) {}
-
+bool amILabel(){
+    return true;
+}
 void Label::_draw()
 {
+     WORD prevAttribute;
+    _CONSOLE_SCREEN_BUFFER_INFO bi;
+    GetConsoleScreenBufferInfo(outHandle, &bi);
+    prevAttribute = bi.wAttributes;
     //auto outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(outHandle, this->start_coordinate);
     SetConsoleTextAttribute(outHandle, this->text_color|this->background_color);
     std::cout << text;
+    SetConsoleTextAttribute(outHandle, prevAttribute);      //set colors back to prev
     CONSOLE_CURSOR_INFO info = {1, 0};
     SetConsoleCursorInfo(outHandle, &info);
 }

@@ -15,6 +15,7 @@ class TextBox: public Component {
     _CONSOLE_SCREEN_BUFFER_INFO bi;
 
 public:
+    string getInput();
     TextBox(int w, int h, COORD start_coord, DWORD bg_color, DWORD txt_color, Border border = NONE);
     virtual void _draw();
     bool setCursor(int x, int y);

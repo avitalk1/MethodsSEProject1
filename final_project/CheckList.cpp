@@ -4,9 +4,12 @@ List( true,w, h, start_coord, bg_color,txt_color,head_line, options, num_of_opti
     this->setOptions(options, num_of_options);
     this->curr_option = 0;
 }
-
+ COORD CheckList::currentLocation(){
+     return this->options[0]->getCoordinate();
+ }
+ 
 void CheckList::_draw(){
-    List:_draw();
+    List::_draw();
     for(int i = 0; i < this->number_of_options; i++){
         this->options[i]->drawOption();
     }

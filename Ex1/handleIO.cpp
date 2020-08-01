@@ -1,58 +1,101 @@
 
 
-#include "HandleIO.h"
-// HandleIO* getIO(){
-//     return IO;
-// }
-HandleIO::HandleIO() {
+#include "handleIO.h"
+
+handleIO::handleIO() {
     counter = 0;
+    comp_counter = 0;
+    compList = NULL;
+    currComp = NULL;
+    N_currComp = -1;
     outHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(outHandle, &bi);
     prevAttribute = bi.wAttributes;
-    // this->panel = panel;
-    // this->curr_panel=panel;
-    // this->panel->setParentPanel(panel);
 }
-
-// void HandleIO::setCurrPanel(Panel* p){
-//     this->curr_panel=p;
-// }
-
-HandleIO* HandleIO::init(Panel* panel){
-    
-        this->panel = panel;
-        //this->curr_panel=panel;
-        this->panel->setParentPanel(panel);
-        this->panel->mainPanelSignal();
-    return this;
+handleIO::~handleIO() {
+    if (compList != NULL) {
+        delete[] compList;
+    }
 }
-
-void HandleIO::ErrorExit(LPSTR lpszMessage)
+void handleIO::ErrorExit(LPSTR lpszMessage)
 {
+
     fprintf(stderr, "%s\n", lpszMessage);
+
     // Restore input mode on exit.
+
     SetConsoleMode(hStdin, fdwSaveOldMode);
+
     ExitProcess(0);
 }
-void HandleIO::KeyEventProc(KEY_EVENT_RECORD ker)
+
+
+void handleIO::KeyEventProc(KEY_EVENT_RECORD ker)
 {
     printf("Key event: %c virtual key code: %d", ker.uChar.AsciiChar, ker.wVirtualKeyCode);
+
     if (ker.bKeyDown)
         printf("key pressed\n");
     else printf("key released\n");
 }
 
 
-void HandleIO::ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD wbsr)
+void handleIO::ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD wbsr)
 {
     printf("Resize event\n");
     printf("Console screen buffer is %d columns by %d rows.\n", wbsr.dwSize.X, wbsr.dwSize.Y);
 }
 
 
-void HandleIO::IOstart() {
+
+void handleIO::addComp(comp& c) {
+    if (compList == NULL) {
+        compList = new comp * ();
+        if (compList == NULL) {
+            cerr << "alloc";
+            exit(1);
+        }
+        this->N_currComp = 0;
+        this->comp_counter = 1;
+        compList[0] = &c;
+        currComp = compList[0];
+    }
+    else {
+        comp_counter++;
+
+        comp** temp = new comp * [comp_counter]();
+        if (temp == NULL) {
+            cerr << "alloc";
+            exit(1);
+        }
+
+        int i;
+        for (i = 0; i < comp_counter - 1; i++) {
+            temp[i] = compList[i];
+        }
+        temp[i] = &c;
+
+        delete[] compList;
+        compList = temp;
+
+    }
+}
+
+void handleIO::showComp() {
+    if (compList != NULL) {
+        for (int i = 0; i < comp_counter; i++) {
+            compList[i]->_draw();
+            SetConsoleTextAttribute(outHandle, prevAttribute);      //set colors back to prev
+        }
+        CONSOLE_CURSOR_INFO info = { 1,1 };
+        SetConsoleCursorInfo(outHandle, &info);
+        SetConsoleCursorPosition(outHandle, this->currComp->getCoord());
+    }
+}
+
+void handleIO::IOstart() {
     // Get the standard input handle. 
-    panel->_draw();
+    showComp();
     hStdin = GetStdHandle(STD_INPUT_HANDLE);
     if (hStdin == INVALID_HANDLE_VALUE)
         cerr << "GetStdHandle";
@@ -118,50 +161,45 @@ void HandleIO::IOstart() {
     SetConsoleMode(hStdin, fdwSaveOldMode);                 // Restore input mode on exit.
 }
 
-void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
+void handleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     switch (ker.wVirtualKeyCode) {
     case 0x25:   //left arrow (VK_LEFT) (used in textBox controller)
     {
         if (ker.bKeyDown)
-        this->panel->eventListener(0x25);
-          //  this->curr_panel->curr_component->eventListener(0x25);
+            currComp->_write(0x25);
         break;
     }
     case 0x27:  //right arrow (VK_RIGHT) (used in textBox controller)
     {
         if (ker.bKeyDown)
-           this->panel->eventListener(0x27);
-           //this->curr_panel->curr_component->eventListener(0x27);
+            currComp->_write(0x27);
         break;
     }
     case 0x26:  //up arrow (VK_UP) (used in textBox controller)
     {
         if (ker.bKeyDown)
-            //this->curr_panel->curr_component->eventListener(0x26);
-            this->panel->eventListener(0x26);
+            currComp->_write(0x26);
+
         break;
     }
     case 0x28:  //down arrow (VK_DOWN) (used in textBox controller)
     {
         if (ker.bKeyDown) {
-            this->panel->eventListener(0x28);
-            //this->curr_panel->curr_component->eventListener(0x28);
+            currComp->_write(0x28);
         }
         break;
     }
     case 0x09:    //tab (VK_TAB) (used to navigate between controllers)
     {
         if (ker.bKeyDown) {
-           this->panel->eventListener(0x09);
-        //    if(this->panel->curr_component_index==0){
-        //         this->panel->curr_component = this->panel->components[0];
-        //         this->panel->curr_component_index = 0;
-        //         CONSOLE_CURSOR_INFO info = {1, 1};  
-        //         SetConsoleCursorInfo(outHandle, &info);  
-        //         SetConsoleCursorPosition(outHandle,this->panel->curr_component->currentLocation());
-        //    }
+            N_currComp++;
+            if (N_currComp == comp_counter) {
+                currComp = compList[0];
+                N_currComp = 0;
+            }
+            else currComp = compList[N_currComp];
         }
-        SetConsoleCursorPosition(outHandle, panel->curr_component->currentLocation());
+        SetConsoleCursorPosition(outHandle, currComp->CurrLocation());
 
         /*restore graphic configuration*/
         /*maybe use FlushConsoleInputBuffer function() on each 'tab' click in order to clear the console input buffer?*/
@@ -172,16 +210,14 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     case 0x08:   //backspace (VK_BACK) (used in textBox controller)
     {
         if (ker.bKeyDown) {
-            //this->curr_panel->curr_component->eventListener(0x08);
-            this->panel->eventListener(0x08);
+            currComp->_write(0x08);
         }
         break;
     }
     case 0x2E: //delete (VK_DELETE) (used in textBox controller)
     {
         if (ker.bKeyDown) {
-             //this->curr_panel->curr_component->eventListener(0x2E);
-             this->panel->eventListener(0x2E);
+            currComp->_write(0x2E);
         }
         break;
     }
@@ -189,10 +225,7 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     {
 
         if (ker.bKeyDown) {
-            // this->curr_panel->eventListener(0x0D);
-            // // this->curr_panel->nextComponent();
-            this->panel->eventListener(0x0D);
-             
+            currComp->_write(0x0D);
         }
         break;
     }
@@ -200,8 +233,7 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
     {
 
         if (ker.bKeyDown) {
-             //this->curr_panel->curr_component->eventListener(0x20);
-             this->panel->eventListener(0x20);
+            currComp->_write(0x20);
         }
         break;
     }
@@ -217,15 +249,10 @@ void HandleIO::keyIdentifier(KEY_EVENT_RECORD ker) {
         //}
         if (ker.wVirtualKeyCode >= 0x21 && ker.wVirtualKeyCode <= 0x7e) {
             if (ker.bKeyDown) {
-                //this->curr_panel->curr_component->eventListener(ker.uChar.AsciiChar);
-                this->panel->eventListener(ker.uChar.AsciiChar);
+                currComp->_write(ker.uChar.AsciiChar);
             }
         }
         break;
     }
     }
-}
-
-HandleIO::~HandleIO(){
-   delete(this->panel);
 }
